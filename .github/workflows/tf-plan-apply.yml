@@ -72,7 +72,6 @@ jobs:
   checkov-security-scan:
     name: 'Checkov Security Scan'
     runs-on: ubuntu-latest
-    needs: [terraform-linter]
     
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so follow-up steps can access it
@@ -97,7 +96,7 @@ jobs:
       ARM_SKIP_PROVIDER_REGISTRATION: true
     outputs:
       tfplanExitCode: ${{ steps.tf-plan.outputs.exitcode }}
-    needs: [checkov-security-scan]
+    needs: [terraform-linter, checkov-security-scan]
 
     steps:
     # Checkout the repository to the GitHub Actions runner
